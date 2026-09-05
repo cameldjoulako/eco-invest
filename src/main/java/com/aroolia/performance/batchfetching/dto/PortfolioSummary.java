@@ -1,4 +1,6 @@
 package com.aroolia.performance.batchfetching.dto;
 
-public class PortfolioSummary {
-}
+public record PortfolioSummary(
+        String investorName,
+        int portfolioCount
+) {}
