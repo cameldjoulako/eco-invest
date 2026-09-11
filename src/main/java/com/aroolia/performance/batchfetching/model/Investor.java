@@ -12,6 +12,8 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.BatchSize;
+
 @Entity
 @Table(name = "t_investors")
 public class Investor {
@@ -29,8 +31,8 @@ public class Investor {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
+    @BatchSize(size = 10)
     private List<Portfolio> portfolios = new ArrayList<>();
-
     // Constructeur sans argument obligatoire pour la spec JPA
     public Investor() {}
 
