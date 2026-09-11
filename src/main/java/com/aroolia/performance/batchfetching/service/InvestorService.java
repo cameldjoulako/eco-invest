@@ -36,4 +36,20 @@ public class InvestorService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Cas d'utilisation optimisé via JOIN FETCH :
+     * Tout l'arbre d'objets est chargé en une unique requête SQL.
+     */
+    @Transactional(readOnly = true)
+    public List<PortfolioSummary> getInvestorSummariesWithJoinFetch() {
+        List<Investor> investors = investorRepository.findAllWithPortfoliosByJoinFetch();
+
+        return investors.stream()
+                .map(investor -> new PortfolioSummary(
+                        investor.getName(),
+                        investor.getPortfolios().size()
+                ))
+                .collect(Collectors.toList());
+    }
 }
